@@ -41,4 +41,16 @@ public class Order {
         this.orderList.addAll(productsToAdd);
         setTotAmount(totAmount + productsToAdd.stream().mapToDouble(MenuProduct::getPrice).sum());
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", table=" + table.getTableNr() +
+                ", orderList=" + orderList +
+                ", orderState=" + orderState +
+                ", orderTime=" + orderTime +
+                ", totAmount=" + totAmount +
+                '}';
+    }
 }

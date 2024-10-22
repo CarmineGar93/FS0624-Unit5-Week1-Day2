@@ -1,6 +1,7 @@
 package CarmineGargiulo.FS0624_Unit5_Week1_Day2;
 
 import CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities.*;
+import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.OrderState;
 import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.TableState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -110,8 +111,35 @@ public class MyRunner implements CommandLineRunner {
                     if (scelta == 2) break;
                 }
                 Order order = new Order(table, productsList, number, copertoPrice);
-                System.out.println("Il totale è: " + order.getTotAmount());
-
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Order ready!");
+                order.setOrderState(OrderState.READY);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                order.setOrderState(OrderState.SERVED);
+                System.out.println("Bon apeti");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Your order: ");
+                System.out.println(order);
+                System.out.println("Do you wish to do it again?");
+                int scelta;
+                while (true){
+                    scelta = verifyInput();
+                    if(scelta <= 0 || scelta > 2) System.out.println("Wrong input");
+                    else break;
+                }
+                if (scelta == 2) break;
             }
         }
     }
