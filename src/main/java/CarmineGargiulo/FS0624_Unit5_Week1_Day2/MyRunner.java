@@ -25,6 +25,7 @@ public class MyRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         menu.stampaMenu();
         while (true){
+            List<MenuProduct> menuList = new ArrayList<>(menu.getProductList());
             System.out.println("Welcome how many people u are ?");
             int number = verifyInput();
             List<Table> availableTables = tableList.stream().filter(table -> table.getTableState().equals(TableState.FREE) && table.getMaxCapacity() > number).toList();
@@ -44,7 +45,7 @@ public class MyRunner implements CommandLineRunner {
                 List<MenuProduct> productsList = new ArrayList<>();
                 while (true){
                     System.out.println("Which pizza would you like to order");
-                    List<MenuProduct> pizzaList = menu.getProductList().stream().filter(menuProduct -> menuProduct instanceof Pizza).toList();
+                    List<MenuProduct> pizzaList =menuList.stream().filter(menuProduct -> menuProduct instanceof Pizza).toList();
                     pizzaList.forEach(System.out::println);
                     int pizzanr;
                     while (true){
@@ -63,7 +64,7 @@ public class MyRunner implements CommandLineRunner {
                         }
                         if(scelta == 1){
                             System.out.println("Choose a topping");
-                            List<MenuProduct> toppingList = menu.getProductList().stream().filter(menuProduct -> menuProduct instanceof Topping).toList();
+                            List<MenuProduct> toppingList =menuList.stream().filter(menuProduct -> menuProduct instanceof Topping).toList();
                             toppingList.forEach(System.out::println);
                             int toppingNr;
                             while (true){
@@ -73,12 +74,18 @@ public class MyRunner implements CommandLineRunner {
                             }
                             pizza.addTopping((Topping) toppingList.get(toppingNr - 1));
                             productsList.add(pizza);
-                            break; //inserire possibilita di un altro topping
+                            System.out.println("Would you like to put another topping? ");
+                            int scelta2;
+                            while (true){
+                                scelta2 = verifyInput();
+                                if(scelta2 <= 0 || scelta2 > 2) System.out.println("Wrong input");
+                                else break;
+                            }
+                            if(scelta2 == 2) break;
                         } else {
                             productsList.add(pizza);
                             break;
                         }
-
                     }
                     System.out.println("Would you like another pizza?");
                     int scelta2;
@@ -91,7 +98,7 @@ public class MyRunner implements CommandLineRunner {
                 }
                 while (true) {
                     System.out.println("Which drink you would like to take");
-                    List<MenuProduct> drinkList = menu.getProductList().stream().filter(menuProduct -> menuProduct instanceof Drink).toList();
+                    List<MenuProduct> drinkList =menuList.stream().filter(menuProduct -> menuProduct instanceof Drink).toList();
                     drinkList.forEach(System.out::println);
                     int drinknr;
                     while (true){
