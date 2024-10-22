@@ -121,9 +121,9 @@ public class AppConfig {
         return drink;
     }
 
-    @Bean(name = "menu")
+    /*@Bean(name = "menu")
     public Menu getMenu(List<MenuProduct> menuProductList){
         Menu menu = new Menu(menuProductList);
         return menu;
-    }
+    }*/
 }

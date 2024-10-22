@@ -10,9 +10,7 @@ public class Fs0624Unit5Week1Day2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Fs0624Unit5Week1Day2Application.class, args);
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Fs0624Unit5Week1Day2Application.class);
-		Menu menu = (Menu) ctx.getBean("menu");
-		menu.stampaMenu();
+
 	}
 
 }

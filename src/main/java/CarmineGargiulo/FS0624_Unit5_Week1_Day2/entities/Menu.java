@@ -2,13 +2,19 @@ package CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
+@Component
 public class Menu {
+    @Autowired
     private List<MenuProduct> productList;
+
+
     private void printSpaces(int x) {
         for (int i = 0; i < x; i++) {
             System.out.print(" ");
