@@ -3,6 +3,7 @@ package CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Configuration
+@PropertySource("application.properties")
 public class AppConfig {
     @Bean
     public Topping getTomato(){
@@ -66,7 +68,7 @@ public class AppConfig {
         return base;
     }
 
-    @Bean
+    @Bean(name = "Pizza Margherita")
     @Scope("prototype")
     public Pizza getPizzaMargherita(){
         Pizza pizza = new Pizza(4.99, 1000, getToppingBase());
@@ -74,7 +76,8 @@ public class AppConfig {
         return pizza;
     }
 
-    @Bean
+    @Bean(name = "Pizza sausage and mushrooms")
+    @Scope("prototype")
     public Pizza getPizzaSalsicciaFunghi(){
         Pizza pizza = getPizzaMargherita();
         pizza.addTopping(getMushrooms());
@@ -83,7 +86,8 @@ public class AppConfig {
         return pizza;
     }
 
-    @Bean
+    @Bean(name = "Pizza diavola")
+    @Scope("prototype")
     public Pizza getPizzaDiavola(){
         Pizza pizza = getPizzaMargherita();
         pizza.addTopping(getSalame());
@@ -91,7 +95,8 @@ public class AppConfig {
         return pizza;
     }
 
-    @Bean
+    @Bean(name = "Pizza sausage and eggplant")
+    @Scope("prototype")
     public Pizza getPizzaMelanzaneSalsiccia(){
         Pizza pizza = getPizzaMargherita();
         pizza.addTopping(getMelanzane());
@@ -170,8 +175,4 @@ public class AppConfig {
         return table;
     }
 
-    @Bean(name = "lista_tavoli")
-    public List<Table> getTables(List<Table> tableList){
-        return tableList;
-    }
 }

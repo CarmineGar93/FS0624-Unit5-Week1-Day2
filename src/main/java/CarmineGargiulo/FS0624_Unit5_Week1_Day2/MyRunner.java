@@ -5,11 +5,13 @@ import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.OrderState;
 import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.TableState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class MyRunner implements CommandLineRunner {
@@ -23,18 +25,19 @@ public class MyRunner implements CommandLineRunner {
     private int copertoPrice;
     @Override
     public void run(String... args) throws Exception {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Fs0624Unit5Week1Day2Application.class);
         menu.stampaMenu();
         while (true){
             List<MenuProduct> menuList = new ArrayList<>(menu.getProductList());
             System.out.println("Welcome how many people u are ?");
             int number = verifyInput();
-            List<Table> availableTables = tableList.stream().filter(table -> table.getTableState().equals(TableState.FREE) && table.getMaxCapacity() > number).toList();
+            List<Table> availableTables = tableList.stream().filter(table -> table.getTableState().equals(TableState.FREE) && table.getMaxCapacity() >= number).toList();
             if(availableTables.isEmpty()) {
                 System.out.println("Sorry no tables available at the moment");
                 break;
             } else {
-                System.out.println("Please choose on table");
-                availableTables.forEach(table -> System.out.println("Table number " + table.getTableNr()));
+                System.out.println("Please choose a table");
+                availableTables.forEach(table -> System.out.println((availableTables.indexOf(table) + 1) + " - Table number " + table.getTableNr()));
                 int tablenr;
                 while (true){
                     tablenr = verifyInput();
@@ -46,14 +49,15 @@ public class MyRunner implements CommandLineRunner {
                 while (true){
                     System.out.println("Which pizza would you like to order");
                     List<MenuProduct> pizzaList =menuList.stream().filter(menuProduct -> menuProduct instanceof Pizza).toList();
-                    pizzaList.forEach(System.out::println);
+                    AtomicInteger count2 = new AtomicInteger(1);
+                    pizzaList.forEach(menuProduct -> System.out.println((pizzaList.indexOf(menuProduct) + 1) + " - " + menuProduct));
                     int pizzanr;
                     while (true){
                         pizzanr = verifyInput();
                         if(pizzanr <= 0 || pizzanr > pizzaList.size()) System.out.println("Wrong input");
                         else break;
                     }
-                    Pizza pizza = (Pizza) pizzaList.get(pizzanr - 1);
+                    Pizza pizza = (Pizza) ctx.getBean(((Pizza) pizzaList.get(pizzanr - 1)).getName());
                     while (true) {
                         System.out.println("Would you like to put extra toppings on it ?");
                         int scelta;
@@ -64,8 +68,8 @@ public class MyRunner implements CommandLineRunner {
                         }
                         if(scelta == 1){
                             System.out.println("Choose a topping");
-                            List<MenuProduct> toppingList =menuList.stream().filter(menuProduct -> menuProduct instanceof Topping).toList();
-                            toppingList.forEach(System.out::println);
+                            List<MenuProduct> toppingList = menuList.stream().filter(menuProduct -> menuProduct instanceof Topping).toList();
+                            toppingList.forEach(menuProduct -> System.out.println((toppingList.indexOf(menuProduct) + 1) + " - " + menuProduct));
                             int toppingNr;
                             while (true){
                                 toppingNr = verifyInput();
@@ -98,8 +102,8 @@ public class MyRunner implements CommandLineRunner {
                 }
                 while (true) {
                     System.out.println("Which drink you would like to take");
-                    List<MenuProduct> drinkList =menuList.stream().filter(menuProduct -> menuProduct instanceof Drink).toList();
-                    drinkList.forEach(System.out::println);
+                    List<MenuProduct> drinkList = menuList.stream().filter(menuProduct -> menuProduct instanceof Drink).toList();
+                    drinkList.forEach(menuProduct -> System.out.println((drinkList.indexOf(menuProduct) + 1) + " - " + menuProduct));
                     int drinknr;
                     while (true){
                         drinknr = verifyInput();

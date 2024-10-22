@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
-@ToString
+
 public class Pizza extends MenuProduct{
     private List<Topping> toppingList;
     public Pizza(double price, int calories, List<Topping> toppingList) {
@@ -22,4 +22,9 @@ public class Pizza extends MenuProduct{
         this.calories += topping.calories;
     }
 
+    @Override
+    public String toString() {
+        return  name + toppingList +
+                ", price: " + price;
+    }
 }

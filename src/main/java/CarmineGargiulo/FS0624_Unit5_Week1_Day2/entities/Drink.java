@@ -5,11 +5,17 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
 public class Drink extends MenuProduct{
     private double qty;
     public Drink(double price, int calories, double qty) {
         super(price, calories);
         this.qty = qty;
+    }
+
+    @Override
+    public String toString() {
+        return name +
+                " (" + qty +
+                "l), price: " + price;
     }
 }
