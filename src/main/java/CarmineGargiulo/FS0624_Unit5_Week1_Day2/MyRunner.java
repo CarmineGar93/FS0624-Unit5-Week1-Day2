@@ -60,6 +60,8 @@ public class MyRunner implements CommandLineRunner {
                     Pizza pizza = (Pizza) ctx.getBean(((Pizza) pizzaList.get(pizzanr - 1)).getName());
                     while (true) {
                         System.out.println("Would you like to put extra toppings on it ?");
+                        System.out.println("1 - Yes");
+                        System.out.println("2 - No");
                         int scelta;
                         while (true){
                             scelta = verifyInput();
@@ -79,6 +81,8 @@ public class MyRunner implements CommandLineRunner {
                             pizza.addTopping((Topping) toppingList.get(toppingNr - 1));
                             productsList.add(pizza);
                             System.out.println("Would you like to put another topping? ");
+                            System.out.println("1 - Yes");
+                            System.out.println("2 - No");
                             int scelta2;
                             while (true){
                                 scelta2 = verifyInput();
@@ -92,6 +96,8 @@ public class MyRunner implements CommandLineRunner {
                         }
                     }
                     System.out.println("Would you like another pizza?");
+                    System.out.println("1 - Yes");
+                    System.out.println("2 - No");
                     int scelta2;
                     while (true){
                         scelta2 = verifyInput();
@@ -113,6 +119,8 @@ public class MyRunner implements CommandLineRunner {
                     Drink drink = (Drink) drinkList.get(drinknr - 1);
                     productsList.add(drink);
                     System.out.println("Would you like another drink? ");
+                    System.out.println("1 - Yes");
+                    System.out.println("2 - No");
                     int scelta;
                     while (true){
                         scelta = verifyInput();
@@ -144,6 +152,8 @@ public class MyRunner implements CommandLineRunner {
                 System.out.println("Your order: ");
                 System.out.println(order);
                 System.out.println("Do you wish to do it again?");
+                System.out.println("1 - Yes");
+                System.out.println("2 - No");
                 int scelta;
                 while (true){
                     scelta = verifyInput();
