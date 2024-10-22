@@ -2,11 +2,13 @@ package CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
+@ToString
 public class Pizza extends MenuProduct{
     private List<Topping> toppingList;
     public Pizza(double price, int calories, List<Topping> toppingList) {

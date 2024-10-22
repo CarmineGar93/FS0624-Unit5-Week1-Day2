@@ -1,11 +1,13 @@
 package CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Configuration
 public class AppConfig {
@@ -14,6 +16,11 @@ public class AppConfig {
         Topping topping = new Topping(0.5, 30);
         topping.setName("Tomato");
         return topping;
+    }
+
+    @Bean
+    public int getCopertoFee(@Value("${menu.coperto}") int coperto){
+        return coperto;
     }
 
     @Bean
@@ -121,9 +128,50 @@ public class AppConfig {
         return drink;
     }
 
-    /*@Bean(name = "menu")
-    public Menu getMenu(List<MenuProduct> menuProductList){
-        Menu menu = new Menu(menuProductList);
-        return menu;
-    }*/
+   @Bean
+    public Scanner getScanner(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner;
+   }
+
+   @Bean(name = "table1")
+    public Table getTable1(){
+        Table table = new Table(8);
+        return table;
+   }
+
+    @Bean(name = "table2")
+    public Table getTable2(){
+        Table table = new Table(8);
+        return table;
+    }
+
+    @Bean(name = "table3")
+    public Table getTable3(){
+        Table table = new Table(4);
+        return table;
+    }
+
+    @Bean(name = "table4")
+    public Table getTable4(){
+        Table table = new Table(4);
+        return table;
+    }
+
+    @Bean(name = "table5")
+    public Table getTable5(){
+        Table table = new Table(2);
+        return table;
+    }
+
+    @Bean(name = "table6")
+    public Table getTable6(){
+        Table table = new Table(2);
+        return table;
+    }
+
+    @Bean(name = "lista_tavoli")
+    public List<Table> getTables(List<Table> tableList){
+        return tableList;
+    }
 }
