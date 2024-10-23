@@ -27,7 +27,7 @@ public class MyRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Fs0624Unit5Week1Day2Application.class);
         menu.stampaMenu();
-        while (true){
+       /* while (true){
             List<MenuProduct> menuList = new ArrayList<>(menu.getProductList());
             System.out.println("Welcome how many people u are ?");
             int number = verifyInput();
@@ -162,7 +162,7 @@ public class MyRunner implements CommandLineRunner {
                 }
                 if (scelta == 2) break;
             }
-        }
+        }*/
     }
 
     private int verifyInput(){

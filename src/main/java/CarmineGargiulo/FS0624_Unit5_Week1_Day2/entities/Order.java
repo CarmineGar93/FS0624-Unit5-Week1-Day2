@@ -2,6 +2,7 @@ package CarmineGargiulo.FS0624_Unit5_Week1_Day2.entities;
 
 import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.OrderState;
 import CarmineGargiulo.FS0624_Unit5_Week1_Day2.enums.TableState;
+import CarmineGargiulo.FS0624_Unit5_Week1_Day2.exceptions.OccupiedOrUnmatchableTableException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,12 +28,13 @@ public class Order {
     private double totAmount;
     private static int count = 1;
 
-    public Order(Table table, List<MenuProduct> orderList, int coverChargeNr, int coperto){
+    public Order(Table table, int coverChargeNr, int coperto){
+        if(table.getMaxCapacity() < coverChargeNr || table.getTableState().equals(TableState.OCCUPIED)) throw new OccupiedOrUnmatchableTableException();
         this.table = table;
         this.table.setTableState(TableState.OCCUPIED);
-        this.orderList = new ArrayList<>(orderList);
+        this.orderList = new ArrayList<>();
         this.coverChargeNr = coverChargeNr;
-        this.totAmount = orderList.stream().mapToDouble(MenuProduct::getPrice).sum() + (coverChargeNr * coperto);
+        this.totAmount = coverChargeNr * coperto;
         this.orderId = count;
         count++;
     }
