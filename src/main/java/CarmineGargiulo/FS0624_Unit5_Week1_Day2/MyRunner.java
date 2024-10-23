@@ -52,7 +52,7 @@ public class MyRunner implements CommandLineRunner {
                     Order order = new Order(table, number, copertoPrice);
                     List<MenuProduct> productsList = new ArrayList<>();
                     menuPizza(productsList, ctx);
-                    menuDrink(productsList, ctx);
+                    menuDrink(productsList);
                     order.addElementsToOrder(productsList);
                     try {
                         Thread.sleep(3000);
@@ -175,7 +175,7 @@ public class MyRunner implements CommandLineRunner {
         }
     }
 
-    private void menuDrink(List<MenuProduct> productsList, AnnotationConfigApplicationContext ctx) {
+    private void menuDrink(List<MenuProduct> productsList) {
         while (true) {
             List<MenuProduct> menuList = new ArrayList<>(menu.getProductList());
             System.out.println("Which drink you would like to take");
